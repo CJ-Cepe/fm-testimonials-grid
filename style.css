@@ -70,7 +70,7 @@ body main {
   font-weight: 300;
 }
 .testimonial .header {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   line-height: initial;
 }
@@ -83,7 +83,7 @@ body main {
   background-color: hsl(263, 55%, 52%);
   background-image: url("./images/bg-pattern-quotation.svg");
   background-repeat: no-repeat;
-  background-position: top right 10%;
+  background-position: top right 20%;
 }
 .testimonial:nth-child(1) .author img {
   border: 2px solid #A775F2;

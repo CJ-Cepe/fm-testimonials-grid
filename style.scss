@@ -1,40 +1,45 @@
-
+@use "sass:math";
 
 /* Variables */
+$violet: hsl(263, 55%, 52%);
+$light-violet: #A775F2;
+$dark-grayish-blue: hsl(217, 19%, 35%);
+$dark-blackish-blue: hsl(219, 29%, 14%);
+$white: hsl(0, 0%, 100%);
 
-$Moderate-violet: hsl(263, 55%, 52%);
-$Very-dark-grayish-blue: hsl(217, 19%, 35%);
-$Very-dark-blackish-blue: hsl(219, 29%, 14%);
-$White: hsl(0, 0%, 100%);
-$Light-gray: hsl(0, 0%, 81%);
-$Light-grayish-blue: hsl(210, 46%, 95%);
-
-/* Dimensions 
-
-  Mobile
-    - Body
-        - lr-pad: 25px
-        - tb-pad: 72px
-        - card-gap: 24px
-        - line-height: 150%
-        - font-size: 13px
-        - weights: 500, 600
-        - font-family: Barlow Semi Condensed
-    - Card
-        - lr-pad: 32px
-        - tb-pad: 32px | 36px
-        - author img-name-gap: 16px?
-            - name-status-gap: 6px?
-            - image-border: 1px?
-        - flex-gap: 20px | 22px | 24px?
-
-    1. "Verified Graduate" has the same color as the person's name with 50% opacity
-    2. Review paragraphs inside the quotations have the same color as well, but are at 70% opacity
-*/
-@use "sass:math";
+$light-gray: hsl(0, 0%, 81%);
+$light-grayish-blue: hsl(210, 46%, 95%);
 
 @function pxToRem($px){
     @return math.div($px, 16px) * 1rem;
+}
+
+@mixin set-box-shadow($shadow){
+    @if($shadow == "false") {
+        box-shadow: none;
+    } @else {
+        box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.2);
+        -webkit-box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.2);
+        -moz-box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.2);
+    }
+}
+
+@mixin set-color($background-color){
+    @if ($background-color == 'white') {
+        color: $dark-grayish-blue;
+    } @else {
+        color: $white;
+    }
+
+    @if ($background-color == 'violet') {
+        background-color: $violet;
+    } @else if ($background-color == 'grayish-blue') {
+        background-color: $dark-grayish-blue;
+    } @else if ($background-color == 'blackish-blue') {
+        background-color: $dark-blackish-blue;
+    } @else {
+        background-color: $white;
+    }
 }
 
 /* Simple Css reset */
@@ -50,6 +55,7 @@ $Light-grayish-blue: hsl(210, 46%, 95%);
 /* Body */
 body {
     min-height: 100vh;
+    background-color: $light-grayish-blue;
     
     display: flex;
     align-items: center;
@@ -59,9 +65,11 @@ body {
     font-weight: 500;
     font-size: 13px;
     line-height: 150%;
+    letter-spacing: 0.1px;
 
     main {
-        padding: pxToRem(72px) pxToRem(32px);
+        max-width: pxToRem(1110px);
+        padding: pxToRem(71px) pxToRem(24px);
 
         display: grid;
         grid-template-columns: 1fr;
@@ -71,33 +79,45 @@ body {
 
 /* Testimonial Card */
 .testimonial {
-    padding: pxToRem(32px);
+    width: 100%;
+    padding: pxToRem(26px) pxToRem(32px) pxToRem(32px);
+    border-radius: pxToRem(8px);
+    @include set-box-shadow("true");
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
     
     display: flex;
     flex-direction: column;
-    gap: pxToRem(22px);
+    gap: pxToRem(18px);
+
+    &:hover,
+    &:focus {
+        transform: scale(0.98);
+        @include set-box-shadow("false");
+    }
 
     .author {
         display: flex;
         align-items: center;
         gap: 16px;
 
-
         img {
             border-radius: 50%;
             max-width: pxToRem(32px);
             width: 100%;
-            /* border: 1px solid black; !!!!*/
         }
 
         figcaption {
+            line-height: 130%;
+
             .name {
-              font-weight: 600;
+              letter-spacing: initial;
             }
 
             .status {
                 font-size: pxToRem(12px);
-                letter-spacing: pxToRem(-0.3px);
+                letter-spacing: pxToRem(-0.2px);
+                opacity: 50%;
+                font-weight: 300;
             }
         }
     }
@@ -105,9 +125,81 @@ body {
     .header {
         font-size: 18px;
         font-weight: 600;
+        line-height: initial;
     }
 
     .content {
+        opacity: 70%;
+    }
+}
 
+.testimonial:nth-child(1) {
+    @include set-color("violet");
+    background-image: url("./images/bg-pattern-quotation.svg");
+    background-repeat: no-repeat;
+    background-position: top right 10%;
+
+    .author img {
+        border: 2px solid $light-violet;
+    }
+}
+
+.testimonial:nth-child(2) {
+    @include set-color("grayish-blue");
+}
+
+.testimonial:nth-child(3),
+.testimonial:nth-child(5) {
+    @include set-color("white");
+}
+
+.testimonial:nth-child(4) {
+    @include set-color("blackish-blue");
+
+    .author img {
+        border: 2px solid $light-violet;
+    }
+}
+
+@media screen and (min-width: 1110px) {
+    body {  
+        main {
+            padding: 0;
+            
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: 1fr 0.5fr;
+            gap: 24px 28px
+        }
+    }
+
+    .testimonial {
+        padding: pxToRem(26px) pxToRem(32px);
+        /* justify-content: space-between; */
+    }
+
+    .testimonial:nth-child(1){
+        grid-row: span 1;
+        grid-column: 1 / 3;
+
+    }
+
+    .testimonial:nth-child(2){
+        grid-row: span 1;
+        grid-column: span 1;
+    }
+
+    .testimonial:nth-child(3){
+        grid-row: span 1;
+        grid-column: 1 / 2;
+    }
+
+    .testimonial:nth-child(4){
+        grid-row: span 1;
+        grid-column: span 2;
+    }
+
+    .testimonial:nth-child(5){
+        grid-row: 1 / 3;
+        grid-column: 4 / 5;
     }
 }

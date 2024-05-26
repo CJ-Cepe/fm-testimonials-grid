@@ -123,7 +123,7 @@ body {
     }
 
     .header {
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 600;
         line-height: initial;
     }
@@ -137,7 +137,7 @@ body {
     @include set-color("violet");
     background-image: url("./images/bg-pattern-quotation.svg");
     background-repeat: no-repeat;
-    background-position: top right 10%;
+    background-position: top right 20%;
 
     .author img {
         border: 2px solid $light-violet;

@@ -1,0 +1,61 @@
+
+
+/* Variables */
+
+/* Dimensions 
+
+  Mobile
+    - Body
+        - lr-pad: 25px
+        - tb-pad: 72px
+        - card-gap: 24px
+        - line-height: 150%
+        - font-size: 13px
+        - weights: 500, 600
+        - font-family: Barlow Semi Condensed
+    - Card
+        - lr-pad: 32px
+        - tb-pad: 32px | 36px
+        - author img-name-gap: 16px?
+            - name-status-gap: 6px?
+            - image-border: 1px?
+        - flex-gap: 20px | 22px | 24px?
+
+    1. "Verified Graduate" has the same color as the person's name with 50% opacity
+    2. Review paragraphs inside the quotations have the same color as well, but are at 70% opacity
+*/
+ 
+
+
+
+/* Simple Css reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+/* Body */
+body {
+    min-height: 100vh;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    font-family: "Barlow Semi Condensed", sans-serif;
+    font-weight: 500;
+    line-height: 150%;
+    
+    main {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Testimonial Card */
+
+article:nth-child(1){
+
+}
